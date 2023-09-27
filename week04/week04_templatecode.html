@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>4주차 웹응용프로그래밍</title>
+    <style>
+      .myButton {
+        background-color: #3498db;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .myButton:hover {
+        background-color: #2980b9;
+      }
+
+      .myButton2 {
+        background-color: #e74c3c;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .myButton2:hover {
+        background-color: #c0392b;
+      }
+
+      .myButton3 {
+        background-color: #a33ce7;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .myButton3:hover {
+        background-color: #d400ff;
+      }
+
+      #myP {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 24px;
+        font-weight: bold;
+      }
+    </style>
+    <script>
+      /* TODO : 객체 선언하기*/
+
+      function openNewWindow() {
+        window.open("child.html", "_blank");
+      }
+
+      function change() {
+        let span = document.getElementById("myspan");
+        span.style.color = "purple";
+        span.style.fontWeight = "bold";
+        span.style.backgroundColor = "yellow";
+      }
+
+      function createTag() {
+        let obj = document.getElementById("first");
+        let newDIV = document.createElement("div");
+        newDIV.innerHTML = "안녕하세요!";
+        newDIV.setAttribute("id", "newdiv");
+        newDIV.style.backgroundColor = "magenta";
+        newDIV.style.fontFamily = "BatangChe";
+        newDIV.style.fontWeight = "bold";
+        newDIV.style.fontSize = "large";
+        newDIV.style.marginBottom = "10px";
+        newDIV.onclick = function () {
+          let p = this.parentElement;
+          p.removeChild(this);
+        };
+        obj.appendChild(newDIV);
+      }
+
+      function loadURL(iframeid, buttonid) {
+        let url = document.getElementById("txt_url").value;
+        let Obj = document.getElementById(iframeid);
+        Obj.setAttribute("src", url);
+        let i = 5;
+        let button = document.getElementById(buttonid);
+        let msg = document.getElementById(buttonid).value;
+        function f() {
+          if (i == -1) {
+            Obj.setAttribute("src", "");
+            clearInterval(timerID);
+          }
+          button.innerHTML = value + i;
+          i--;
+        }
+        let timerID = setInterval("f()", 1000);
+      }
+
+      function cancelTimer(/* TODO */) {
+        /* TODO : 타이머 해제 해보기 */
+      }
+    </script>
+  </head>
+  <body>
+    <div id="first">
+      <button class="myButton" onclick="change()">style 변경!</button>
+      <button class="myButton" onclick="createTag()">엘리먼트 생성!</button>
+      <p>
+        <span id="myspan" style="color: blue" onclick="openNewWindow()"
+          >나를 클릭하세요</span
+        >
+      </p>
+    </div>
+    <div id="second">
+      <br />
+      <input type="text" id="txt_url" placeholder="URL 입력" />
+      <button class="myButton" onclick="loadURL('iframe1','timercancel1')">
+        URL 로드1
+      </button>
+      <button class="myButton2" onclick="loadURL('iframe2','timercancel2')">
+        URL 로드2
+      </button>
+      <button id="timercancel1" class="myButton3" onclick="cancelTimer(this)">
+        타이머1 취소
+      </button>
+      <button id="timercancel2" class="myButton3" onclick="cancelTimer(this)">
+        타이머2 취소
+      </button>
+      <br />
+      <iframe id="iframe1" width="800" height="600"></iframe>
+      <iframe id="iframe2" width="800" height="600"></iframe>
+    </div>
+  </body>
+</html>

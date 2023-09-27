@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>웹응용프로그래밍 3주차</title>
+    <style>
+      .button {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
+
+      .button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+    <script>
+      let myaccount = new Account();
+      function Account() {
+        this.inquiry = function () {
+          return this.balance;
+        };
+      }
+      function functionA() {
+        let now = new Date();
+        let now_m = now.getMinutes();
+        let now_s = now.getSeconds();
+        let sum_time = prompt(
+          "현재 시간에서 '분'과 '초'를 더하세요. (" +
+            now_m +
+            " + " +
+            now_s +
+            ") = ?",
+          ""
+        );
+        if (sum_time == now_m + now_s) {
+          alert("맞앗습니다!");
+        } else if (sum_time == null) {
+          return;
+        } else {
+          alert("틀렸습니다!");
+        }
+      }
+      function functionB() {
+        let name = prompt("예금주를 입력하세요:");
+        if (name == null) {
+          name = "???";
+        }
+        let balance = prompt("잔액을 입력하세요:");
+        if (balance == null) {
+          balance = -100;
+        }
+        myaccount.name = name;
+        myaccount.balance = balance;
+      }
+      function functionC() {
+        if (Object.keys(myaccount).length == 1) {
+          alert("계좌 정보가 존재하지 않습니다");
+        } else {
+          alert(
+            myaccount.name +
+              "님의 계좌 잔액은 " +
+              myaccount.inquiry() +
+              "원 입니다"
+          );
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button class="button" onclick="functionA()">A 버튼</button>
+    <button class="button" onclick="functionB()">B 버튼</button>
+    <button class="button" onclick="functionC()">C 버튼</button>
+  </body>
+</html>

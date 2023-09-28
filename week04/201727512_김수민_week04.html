@@ -46,7 +46,13 @@
       }
     </style>
     <script>
-      /* TODO : 객체 선언하기*/
+      // function BtObj(url, Obj, msg, button, timerID) {
+      //   this.url = url;
+      //   this.Obj = Obj;
+      //   this.msg = msg;
+      //   this.button = button;
+      //   this.timerID = timerID;
+      // }
 
       function openNewWindow() {
         window.open("child.html", "_blank");
@@ -79,23 +85,27 @@
       function loadURL(iframeid, buttonid) {
         let url = document.getElementById("txt_url").value;
         let Obj = document.getElementById(iframeid);
+        let msg = document.getElementById(buttonid).innerHTML;
+        let button = document.getElementById(buttonid);
         Obj.setAttribute("src", url);
         let i = 5;
-        let button = document.getElementById(buttonid);
-        let msg = document.getElementById(buttonid).value;
-        function f() {
+        let timerID;
+        clearInterval(timerID);
+        timerID = setInterval(f, 1000, Obj, msg);
+        function f(Obj, msg) {
           if (i == -1) {
             Obj.setAttribute("src", "");
+            button.innerHTML = msg;
             clearInterval(timerID);
+          } else {
+            button.innerHTML = msg + "(" + i + ")";
+            i--;
           }
-          button.innerHTML = value + i;
-          i--;
         }
-        let timerID = setInterval("f()", 1000);
       }
 
-      function cancelTimer(/* TODO */) {
-        /* TODO : 타이머 해제 해보기 */
+      function cancelTimer(timerID) {
+        clearInterval(timerID);
       }
     </script>
   </head>
@@ -118,10 +128,18 @@
       <button class="myButton2" onclick="loadURL('iframe2','timercancel2')">
         URL 로드2
       </button>
-      <button id="timercancel1" class="myButton3" onclick="cancelTimer(this)">
+      <button
+        id="timercancel1"
+        class="myButton3"
+        onclick="cancelTimer(this.timerID)"
+      >
         타이머1 취소
       </button>
-      <button id="timercancel2" class="myButton3" onclick="cancelTimer(this)">
+      <button
+        id="timercancel2"
+        class="myButton3"
+        onclick="cancelTimer(this.timerID)"
+      >
         타이머2 취소
       </button>
       <br />
